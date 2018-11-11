@@ -24,6 +24,7 @@ SpotifyVero=0    # installs Spotify Connect for VERO devices (Premium users only
 SyncThing=0    # installs SyncThing
 AddMediaToKodi=0    #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
 DisableLEDS=0    #RPI2 or RPI3 only
+Cloudflare_Scraper=1
 
 
 ##########################################
@@ -204,8 +205,8 @@ source ~/flexget/bin/activate
 pip3 install subliminal>=2.0
 pip3 install transmissionrpc
 pip3 install transmissionrpc --upgrade
-wget -O config.yml https://rawgit.com/zilexa/flexget_config/master/config.yml
-wget -O secrets.yml https://rawgit.com/zilexa/flexget_config/master/secrets.yml
+wget -O config.yml https://rawgit.com/hangmanhasan/flexget_config/master/config.yml
+wget -O secrets.yml https://rawgit.com/hangmanhasan/flexget_config/master/secrets.yml
 sed -i "s/TraktUser/$TraktUser/g" $HomeFolder/flexget/secrets.yml
 sed -i "s/TransmissionUser/$TransmissionUser/g" $HomeFolder/flexget/secrets.yml
 sed -i "s/TransmissionPw/$TransmissionPw/g" $HomeFolder/flexget/secrets.yml
@@ -213,6 +214,11 @@ sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' $HomeFolder/flexget/secrets.yml
 sudo mkdir $HomeFolder/flexget/plugins/
 cd $HomeFolder/flexget/plugins/
 sudo wget -O log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
+fi
+
+# install Cloudflare_Scraper
+if [ "$Cloudflare_Scraper" = "1" ] ; then
+pip install cfscrape
 fi
 
 # Run FLEXGET at startup
